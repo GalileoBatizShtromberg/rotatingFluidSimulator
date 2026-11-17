@@ -150,7 +150,7 @@ def arakawa_jacobian(psi: np.ndarray, q: np.ndarray) -> np.ndarray:
     ne = (slice(2, None), slice(2, None));  nw = (slice(None, -2), slice(2, None))
     se = (slice(2, None), slice(None, -2)); sw = (slice(None, -2), slice(None, -2))
 
-    # normal formula (aka I asked claude to do the normal formula)
+    # normal formula
     jpp = ((psi[e] - psi[w]) * (q[n] - q[s]) - (psi[n] - psi[s]) * (q[e] - q[w]))
     # J+x the formula using like theneighbors with the product rule rearangement
     jpx = (psi[e] * (q[ne] - q[se]) - psi[w] * (q[nw] - q[sw])
@@ -158,7 +158,6 @@ def arakawa_jacobian(psi: np.ndarray, q: np.ndarray) -> np.ndarray:
     # Jx+ : the other diagonal neighbors
     jxp = (psi[ne] * (q[n] - q[e]) - psi[sw] * (q[w] - q[s])
            - psi[nw] * (q[n] - q[w]) + psi[se] * (q[e] - q[s]))
-    #honestly, I had claude do the math which I understand mostly only on paper
 
     
     out = np.zeros_like(psi)
